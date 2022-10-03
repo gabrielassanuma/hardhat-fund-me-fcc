@@ -23,8 +23,8 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
     solidity: "0.8.8",
+    defaultNetwork: "hardhat",
     networks: {
-        defaultNetwork: "hardhat",
         ropsten: {
             url: process.env.ROPSTEN_URL || "",
             accounts:
