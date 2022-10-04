@@ -6,12 +6,6 @@ import "./PriceConverter.sol";
 
 error FundMe__NotOwner();
 
-/** @title A smart contract for crowd funding
- * @author Gabriel Assanuma
- * @notice This contract is part of FreeCodeCamp Solidity course
- * @dev This implement price feeds as oru library
- */
-
 contract FundMe {
     using PriceConverter for uint256;
 
@@ -22,7 +16,7 @@ contract FundMe {
     uint256 public constant MINIMUM_USD = 50 * 10**18;
 
     AggregatorV3Interface public priceFeed;
-
+    // modifier onlyOwner allow smart contract creator to call functions inside smart contract
     modifier onlyOwner() {
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
@@ -41,6 +35,7 @@ contract FundMe {
         fund();
     }
 
+    // fund function converts tokens value into USD, check if donation is over the minimum limit, transfer fund and push funder to funders array
     function fund() public payable {
         require(
             msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
@@ -50,6 +45,7 @@ contract FundMe {
         funders.push(msg.sender);
     }
 
+    // withdraw function will iterate over funders array send balances to creator smart contract address
     function withdraw() public onlyOwner {
         for (
             uint256 funderIndex = 0;
