@@ -3,6 +3,7 @@ pragma solidity ^0.8.8;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
+// library PriceConverter iteract with chain link and converts tokens value into USD.
 library PriceConverter {
     function getPrice(AggregatorV3Interface priceFeed)
         internal
