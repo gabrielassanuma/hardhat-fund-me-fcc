@@ -1,5 +1,5 @@
-require("dotenv").config()
-require("hardhat-deploy")
+require("dotenv").config() // import variables from .env
+require("hardhat-deploy") // hardhart - deploy will be overwrite by yarn package importing ethers
 require("@nomiclabs/hardhat-etherscan")
 require("@nomiclabs/hardhat-waffle")
 require("hardhat-gas-reporter")
