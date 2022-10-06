@@ -1,9 +1,9 @@
-require("dotenv").config() // import variables from .env
+require("dotenv").config() // comes auto when create a hardhat project
 require("hardhat-deploy") // hardhart - deploy will be overwrite by yarn package importing ethers
-require("@nomiclabs/hardhat-etherscan")
-require("@nomiclabs/hardhat-waffle")
-require("hardhat-gas-reporter")
-require("solidity-coverage")
+require("@nomiclabs/hardhat-etherscan") // comes auto when create a hardhat project
+require("@nomiclabs/hardhat-waffle") // comes auto when create a hardhat project
+require("hardhat-gas-reporter") // comes auto when create a hardhat project
+require("solidity-coverage") // comes auto when create a hardhat project
 
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY

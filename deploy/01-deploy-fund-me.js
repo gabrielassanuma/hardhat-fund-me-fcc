@@ -2,6 +2,7 @@ const { networkConfig, developmentChain } = require("../helper-hardhat-config")
 const { network } = require("hardhat")
 const { verify } = require("../utils/verify")
 
+// anonymous function wrapped by module.exports
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
