@@ -22,4 +22,8 @@ describe("FundMe", async function () {
             assert.equal(response, mockV3Aggregator.address)
         })
     })
+
+    describe("fund", async function () {
+        it("Fails if amount of ETH is under 50USD", async function () {})
+    })
 })

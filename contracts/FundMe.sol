@@ -27,14 +27,6 @@ contract FundMe {
         priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
-    receive() external payable {
-        fund();
-    }
-
-    fallback() external payable {
-        fund();
-    }
-
     // fund function converts tokens value into USD, check if donation is over the minimum limit, transfer fund and push funder to funders array
     function fund() public payable {
         require(
