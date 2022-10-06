@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
+// imported chainlink scripted to convert ethers into USD
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
+// Price converter will be used into FundMe Contract to convert ethers into USD.
 // library PriceConverter iteract with chain link and converts tokens value into USD.
 library PriceConverter {
     function getPrice(AggregatorV3Interface priceFeed)
