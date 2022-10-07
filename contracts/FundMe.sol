@@ -15,15 +15,18 @@ contract FundMe {
     address public immutable i_owner;
     uint256 public constant MINIMUM_USD = 50 * 10**18;
 
-    AggregatorV3Interface public priceFeed;
     // modifier onlyOwner allow smart contract creator to call functions inside smart contract
+    // set up AggregatorV3Interface as a Global variable to be used on this Smart contract and PriceConverter.sol
+    AggregatorV3Interface public priceFeed;
     modifier onlyOwner() {
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
     }
 
+    // priceFeedAddress should be passed to pick network of choice to work with properly API key and get value converted
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
+        // priceFeed refactored to work with differentes networks and differents API keys
         priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 

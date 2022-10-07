@@ -21,7 +21,9 @@ library PriceConverter {
         uint256 ethAmount,
         AggregatorV3Interface priceFeed
     ) internal view returns (uint256) {
+        // priceFeed will set up with API should be used to convert ethers into USD
         uint256 ethPrice = getPrice(priceFeed);
+        // using 1e18 notation to avoid rounded problems with values
         uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1000000000000000000;
         // the actual ETH/USD conversion rate, after adjusting the extra 0s.
         return ethAmountInUsd;

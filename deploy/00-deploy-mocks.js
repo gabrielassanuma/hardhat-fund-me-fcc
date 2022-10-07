@@ -1,3 +1,4 @@
+// deploy mocks is created to simulate the behavior of AgreggatorV3 (conversion of ethers into USD) in a local network in this case hardhat network
 const { network } = require("hardhat")
 const {
     developmentChain,
