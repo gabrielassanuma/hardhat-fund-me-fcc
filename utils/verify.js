@@ -18,3 +18,4 @@ async function verify(contractAddress, args) {
 }
 
 module.exports = { verify }
+//exports verify to be used on deployments

@@ -22,7 +22,7 @@ module.exports = {
             url: GOERLI_RPC_URL,
             accounts: [PRIVATE_KEY],
             chainId: 5,
-            blockConfirmations: 6,
+            blockConfirmations: 6, // block confirmations is set to wait for etherscan to catch up deployment
         },
     },
     gasReporter: {

@@ -25,4 +25,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 }
 
 module.exports.tags = ["all", "mocks"]
-// it will create a tag on hardhat deploy allowing you to pick deploy in all networks or just locally
+// it will create a tag on hardhat deploy allowing you to pick deploy in all deploy scripts or just locally using mocks

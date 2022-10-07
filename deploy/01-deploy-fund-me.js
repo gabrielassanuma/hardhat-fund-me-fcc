@@ -1,6 +1,6 @@
 const { networkConfig, developmentChain } = require("../helper-hardhat-config") // import network from helper-hardhat-config
 const { network } = require("hardhat") // set up network coming from hardhat
-const { verify } = require("../utils/verify")
+const { verify } = require("../utils/verify") // imported from utils/verify.js
 
 // anonymous function wrapped by module.exports
 // getNamedAccounts and deployments are from HRE = hre.getNamedAccount / hre.deployments
@@ -16,7 +16,9 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     let ethUsdPriceFeedAddress // created variable to use same code for multiple network options
     // to set up chainID - created helper-hardhat-config - using aave library
     if (chainId == 31337) {
+        // chainId 31337 = local hardhat network
         const ethUsdAggregator = await deployments.get("MockV3Aggregator")
+        // gets the most recent deployment
         ethUsdPriceFeedAddress = ethUsdAggregator.address
     } else {
         ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
@@ -30,12 +32,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         waitConfirmations: network.config.blockConfirmations || 1,
         //
     })
-
+    // check if deploy is already on blockchain
     if (
         !developmentChain.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
-        await verify(fundMe.address, args)
+        await verify(fundMe.address, args) // verify comes from utils/verify.js
     }
     log("_________________________")
 }

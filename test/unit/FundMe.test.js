@@ -1,10 +1,11 @@
-const { assert } = require("chai")
+const { assert, expect } = require("chai")
 const { deployments, ethers, getNamedAccounts } = require("hardhat")
 
 describe("FundMe", async function () {
     let fundMe
     let deployer
     let mockV3Aggregator
+    const sendValue = ethers.utils.parseEther("1") // equals to 1000000000000000000
 
     beforeEach(async function () {
         deployer = (await getNamedAccounts()).deployer
@@ -24,6 +25,15 @@ describe("FundMe", async function () {
     })
 
     describe("fund", async function () {
-        it("Fails if amount of ETH is under 50USD", async function () {})
+        it("Fails if amount of ETH is under 50USD", async function () {
+            await expect(fundMe.fund()).to.be.revertedWith(
+                "You need to spend more ETH!"
+            )
+        })
+        it("updated amount funded", async function () {
+            await fundMe.fund({ value: sendValue })
+            const response = await fundMe.addressToAmountFunded(deployer)
+            assert.equal(response.toString(), sendValue.toString())
+        })
     })
 })
