@@ -53,7 +53,7 @@ describe("FundMe", async function () {
         beforeEach(async function () {
             await fundMe.fund({ value: sendValue })
         })
-
+        // test for a single funder withdraw
         it("withdraw ETH single funder", async function () {
             // get smart contract balance
             const startingFundMeBalance = await fundMe.provider.getBalance(
@@ -86,6 +86,54 @@ describe("FundMe", async function () {
                 startingFundMeBalance.add(startingDeployerBalance).toString(), // bignumber
                 endingDeployerBalance.add(gasCost).toString() // add gas cost to ending balance
             )
+        })
+
+        // test for withdraw with multiples funders
+        it("withdraw with multiple funders", async function () {
+            const accounts = await ethers.getSigners()
+            // created multiples funders and sent value from this funders
+            for (let i = 1; i < 6; i++) {
+                const fundMeConnectedContract = await fundMe.connect(
+                    accounts[i]
+                )
+                await fundMeConnectedContract.fund({ value: sendValue })
+            }
+            // get smart contract balance
+            const startingFundMeBalance = await fundMe.provider.getBalance(
+                fundMe.address
+            )
+            // get deployer  balance
+            const startingDeployerBalance = await fundMe.provider.getBalance(
+                deployer
+            )
+            // repeated consts from single funder
+            const transactionResponse = await fundMe.withdraw()
+            const transactionReceipt = await transactionResponse.wait(1)
+            const { gasUsed, effectiveGasPrice } = transactionReceipt
+            const gasCost = gasUsed.mul(effectiveGasPrice)
+            // repeated asserts from single funder
+            const endingFundMeBalance = await fundMe.provider.getBalance(
+                fundMe.address
+            )
+            const endingDeployerBalance = await fundMe.provider.getBalance(
+                deployer
+            )
+
+            //repeated assert from single funder
+            assert.equal(endingFundMeBalance, 0) // check if all fund were withdraw
+
+            assert.equal(
+                startingFundMeBalance.add(startingDeployerBalance).toString(), // bignumber
+                endingDeployerBalance.add(gasCost).toString() // add gas cost to ending balance
+            )
+            // check if funders array are reset properly
+            await expect(fundMe.funders(0)).to.be.reverted // check if array is empty, if not throw error
+            // check if withdraw all accounts - accounts should be zero
+            for (let i = 1; i < 6; i++)
+                assert.equal(
+                    await fundMe.addressToAmountFunded(accounts[i]).address,
+                    0
+                )
         })
     })
 })
