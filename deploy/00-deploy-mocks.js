@@ -1,5 +1,6 @@
 // deploy mocks is created to simulate the behavior of AgreggatorV3 (conversion of ethers into USD) in a local network in this case hardhat network
-const { network } = require("hardhat")
+// as deploy-mocks will be used locally - created a smart contract for test purpose - MockV3Aggregator.sol
+const { network } = require("hardhat") // network used will be locally from hardhat
 const {
     developmentChain,
     DECIMALS,
@@ -16,10 +17,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
             contract: "MockV3Aggregator",
             from: deployer,
             log: true,
-            args: [DECIMALS, INITIAL_ANSWER],
+            args: [DECIMALS, INITIAL_ANSWER], // variables set in mockV3 constructor
         })
         log("Mocks deployed")
+        log("__________________________________________")
     }
 }
 
 module.exports.tags = ["all", "mocks"]
+// it will create a tag on hardhat deploy allowing you to pick deploy in all networks or just locally

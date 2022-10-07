@@ -14,6 +14,7 @@ module.exports = {
     //solidity: "0.8.8",
     solidity: {
         compilers: [{ version: "0.8.8" }, { version: "0.6.6" }],
+        // add 0.6.6 version to allowed chainlink scripto to work
     },
     defaultNetwork: "hardhat", // default network should be always outside networks
     networks: {
