@@ -129,11 +129,12 @@ describe("FundMe", async function () {
             // check if funders array are reset properly
             await expect(fundMe.funders(0)).to.be.reverted // check if array is empty, if not throw error
             // check if withdraw all accounts - accounts should be zero
-            for (let i = 1; i < 6; i++)
+            for (let i = 1; i < 6; i++) {
                 assert.equal(
-                    await fundMe.addressToAmountFunded(accounts[i]).address,
+                    await fundMe.addressToAmountFunded(accounts[i].address),
                     0
                 )
+            }
         })
     })
 })
