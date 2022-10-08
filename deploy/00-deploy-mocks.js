@@ -2,7 +2,7 @@
 // as deploy-mocks will be used locally - created a smart contract for test purpose - MockV3Aggregator.sol
 const { network } = require("hardhat") // network used will be locally from hardhat
 const {
-    developmentChain,
+    developmentChains,
     DECIMALS,
     INITIAL_ANSWER,
 } = require("../helper-hardhat-config")
@@ -11,7 +11,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
 
-    if (developmentChain.includes(network.name)) {
+    if (developmentChains.includes(network.name)) {
         log("Local network detected! Deploying mocks...")
         await deploy("MockV3Aggregator", {
             contract: "MockV3Aggregator",

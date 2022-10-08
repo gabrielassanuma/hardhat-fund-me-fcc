@@ -1,4 +1,4 @@
-const { networkConfig, developmentChain } = require("../helper-hardhat-config") // import network from helper-hardhat-config
+const { networkConfig, developmentChains } = require("../helper-hardhat-config") // import network from helper-hardhat-config
 const { network } = require("hardhat") // set up network coming from hardhat
 const { verify } = require("../utils/verify") // imported from utils/verify.js
 
@@ -34,7 +34,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
     // check if deploy is already on blockchain
     if (
-        !developmentChain.includes(network.name) &&
+        !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
         await verify(fundMe.address, args) // verify comes from utils/verify.js
@@ -42,4 +42,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log("_________________________")
 }
 
-module.exports.tags = ["all", "fundme"]
+module.exports.tags = ["all", "FundMe"]
