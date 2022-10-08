@@ -143,7 +143,7 @@ describe("FundMe", async function () {
             const attacker = accounts[1]
             // connect wallet on fundMe contract
             const attackerConnectedContract = await fundMe.connect(attacker)
-            // if wallet is not deployer's wallet throw error
+            // if wallet is not deployer's wallet get reverted - error
             await expect(attackerConnectedContract.withdraw()).to.be.reverted
         })
     })
