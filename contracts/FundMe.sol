@@ -56,4 +56,23 @@ contract FundMe {
         }("");
         require(callSuccess, "Call failed");
     }
+
+    function cheapWithdraw() public payable onlyOwner {
+        // to make contract better gas efficient we store funders array into memory
+        address[] memory funders = s_funders;
+        // for loop on funders array saved in memory
+        for (
+            uint256 funderIndex = 0;
+            funderIndex < funders.length;
+            funderIndex++
+        ) {
+            address funder = funders[funderIndex]; // get funder address
+            s_addressToAmountFunded[funder] = 0; // set value to 0
+        }
+        // reset s_funders array
+        s_funders = new address[](0);
+        // withdraw funds from funders array
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
+        require(success);
+    }
 }
