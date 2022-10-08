@@ -76,7 +76,7 @@ contract FundMe {
         require(success);
     }
 
-    // get functions to make smart contract more gas efficient
+    // get functions to make smart contract use less gas
     function getOwner() public view returns (address) {
         return i_owner;
     }
@@ -85,7 +85,7 @@ contract FundMe {
         return s_funders[index];
     }
 
-    function getAdressToAmountFunded(address funder)
+    function getAddressToAmountFunded(address funder)
         public
         view
         returns (uint256)

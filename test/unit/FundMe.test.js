@@ -21,11 +21,11 @@ describe("FundMe", async function () {
 
     describe("constructor", async function () {
         it("sets the aggregator address correctly", async function () {
-            const response = await fundMe.s_priceFeed()
+            const response = await fundMe.getPriceFeed()
             assert.equal(response, mockV3Aggregator.address)
         })
     })
-    // test constructor smart contract, in this case check if s_priceFeed is working with V3Aggregator
+    // test constructor smart contract, in this case check if getPriceFeed is working with V3Aggregator
 
     describe("fund", async function () {
         it("Fails if amount of ETH is under 50USD", async function () {
@@ -36,16 +36,16 @@ describe("FundMe", async function () {
         // check if amount send by donator is more than 50usd
         it("updated amount funded", async function () {
             await fundMe.fund({ value: sendValue })
-            const response = await fundMe.s_addressToAmountFunded(deployer)
+            const response = await fundMe.getAddressToAmountFunded(deployer)
             assert.equal(response.toString(), sendValue.toString())
         })
         // check if value can be sent by donator to smart contract
-        it("address fund to array s_funders", async function () {
+        it("address fund to array getFunder", async function () {
             await fundMe.fund({ value: sendValue })
-            const funder = await fundMe.s_funders(0)
+            const funder = await fundMe.getFunder(0)
             assert.equal(funder, deployer)
         })
-        // check if donator is pushed to s_funders array
+        // check if donator is pushed to getFunder array
     })
 
     describe("withdraw", async function () {
@@ -88,10 +88,10 @@ describe("FundMe", async function () {
             )
         })
 
-        // test for withdraw with multiples s_funders
-        it("withdraw with multiple s_funders", async function () {
+        // test for withdraw with multiples getFunder
+        it("withdraw with multiple getFunder", async function () {
             const accounts = await ethers.getSigners()
-            // created multiples s_funders and sent value from this s_funders
+            // created multiples getFunder and sent value from this getFunder
             for (let i = 1; i < 6; i++) {
                 const fundMeConnectedContract = await fundMe.connect(
                     accounts[i]
@@ -126,12 +126,12 @@ describe("FundMe", async function () {
                 startingFundMeBalance.add(startingDeployerBalance).toString(), // bignumber
                 endingDeployerBalance.add(gasCost).toString() // add gas cost to ending balance
             )
-            // check if s_funders array are reset properly
-            await expect(fundMe.s_funders(0)).to.be.reverted // check if array is empty, if not throw error
+            // check if getFunder array are reset properly
+            await expect(fundMe.getFunder(0)).to.be.reverted // check if array is empty, if not throw error
             // check if withdraw all accounts - accounts should be zero
             for (let i = 1; i < 6; i++) {
                 assert.equal(
-                    await fundMe.s_addressToAmountFunded(accounts[i].address),
+                    await fundMe.getAddressToAmountFunded(accounts[i].address),
                     0
                 )
             }
@@ -149,7 +149,7 @@ describe("FundMe", async function () {
 
         it("cheaper withdraw testing", async function () {
             const accounts = await ethers.getSigners()
-            // created multiples s_funders and sent value from this s_funders
+            // created multiples getFunder and sent value from this getFunder
             for (let i = 1; i < 6; i++) {
                 const fundMeConnectedContract = await fundMe.connect(
                     accounts[i]
@@ -184,12 +184,12 @@ describe("FundMe", async function () {
                 startingFundMeBalance.add(startingDeployerBalance).toString(), // bignumber
                 endingDeployerBalance.add(gasCost).toString() // add gas cost to ending balance
             )
-            // check if s_s_funders array are reset properly
-            await expect(fundMe.s_funders(0)).to.be.reverted // check if array is empty, if not throw error
+            // check if getFunder array are reset properly
+            await expect(fundMe.getFunder(0)).to.be.reverted // check if array is empty, if not throw error
             // check if withdraw all accounts - accounts should be zero
             for (let i = 1; i < 6; i++) {
                 assert.equal(
-                    await fundMe.s_addressToAmountFunded(accounts[i].address),
+                    await fundMe.getAddressToAmountFunded(accounts[i].address),
                     0
                 )
             }
