@@ -5,7 +5,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
 //check if not in deployment chain
 developmentChains.includes(network.name)
     ? describe.skip
-    : describe("FundME", async function () {
+    : describe("FundMe", async function () {
           let deployer
           let fundMe
           const sendValue = ethers.utils.parseEther("0.1")
