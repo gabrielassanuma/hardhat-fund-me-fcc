@@ -57,7 +57,7 @@ contract FundMe {
         require(callSuccess, "Call failed");
     }
 
-    function cheapWithdraw() public payable onlyOwner {
+    function cheaperWithdraw() public payable onlyOwner {
         // to make contract better gas efficient we store funders array into memory
         address[] memory funders = s_funders;
         // for loop on funders array saved in memory
