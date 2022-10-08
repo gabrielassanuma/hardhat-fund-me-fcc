@@ -136,5 +136,15 @@ describe("FundMe", async function () {
                 )
             }
         })
+        it("only allows the owner to withdraw", async function () {
+            // get all signers from ethers
+            const accounts = ethers.getSigners()
+            // set account to don't match deployer address
+            const attacker = accounts[1]
+            // connect wallet on fundMe contract
+            const attackerConnectedContract = await fundMe.connect(attacker)
+            // if wallet is not deployer's wallet throw error
+            await expect(attackerConnectedContract.withdraw()).to.be.reverted
+        })
     })
 })
