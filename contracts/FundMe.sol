@@ -9,15 +9,15 @@ error FundMe__NotOwner();
 contract FundMe {
     using PriceConverter for uint256;
 
-    mapping(address => uint256) public s_addressToAmountFunded;
-    address[] public s_funders;
+    mapping(address => uint256) private s_addressToAmountFunded;
+    address[] private s_funders;
 
-    address public immutable i_owner;
+    address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 50 * 10**18;
 
     // modifier onlyOwner allow smart contract creator to call functions inside smart contract
     // set up AggregatorV3Interface as a Global variable to be used on this Smart contract and PriceConverter.sol
-    AggregatorV3Interface public s_priceFeed;
+    AggregatorV3Interface private s_priceFeed;
     modifier onlyOwner() {
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
@@ -30,7 +30,7 @@ contract FundMe {
         s_priceFeed = AggregatorV3Interface(s_priceFeedAddress);
     }
 
-    // fund function converts tokens value into USD, check if donation is over the minimum limit, transfer fund and push funder to s_funders array
+    // fund function converts tokens value into USD, check if donation is under the minimum limit, transfer fund and push funder to s_funders array
     function fund() public payable {
         require(
             msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
@@ -74,5 +74,26 @@ contract FundMe {
         // withdraw funds from funders array
         (bool success, ) = i_owner.call{value: address(this).balance}("");
         require(success);
+    }
+
+    // get functions to make smart contract more gas efficient
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
+    function getFunder(uint256 index) public view returns (address) {
+        return s_funders[index];
+    }
+
+    function getAdressToAmountFunded(address funder)
+        public
+        view
+        returns (uint256)
+    {
+        return s_addressToAmountFunded[funder];
+    }
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return s_priceFeed;
     }
 }
