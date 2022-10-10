@@ -24,6 +24,7 @@ Version 1.0.0
 ```
 
 ## Tests
+```bash
   FundMe
     constructor
       ✓ sets the aggregator address correctly
@@ -36,6 +37,7 @@ Version 1.0.0
       ✓ withdraw with multiple getFunder
       ✓ only allows the owner to withdraw
       ✓ cheaper withdraw testing
+```
 
 ## Usage
 
