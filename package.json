@@ -24,5 +24,8 @@
     "lint:fix": "yarn solhitn contracts/*.sol --fix",
     "formatter": "yarn prettier --write",
     "coverage": "yarn hardhat coverage"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3"
   }
 }
