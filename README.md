@@ -5,7 +5,8 @@ FundMe helps users raise funding for Projects using ETH Blockchain.
 
 ## Network
 This project was designed to work on ETH blockchain, using MetaMask Wallets.
-It's on test net, using Goerli Tokens.
+The contract has been deployed on Goerli Testnet(ETH): https://goerli.etherscan.io/address/0xaac35864D0C9e4baFD840A75307Af12F4a5DcA81
+
 
 ## Version
 Version 1.0.0
@@ -39,9 +40,8 @@ Version 1.0.0
       ✓ cheaper withdraw testing
 ```
 
-## Usage
 
-The contract has been deployed on Goerli Testnet(ETH): https://goerli.etherscan.io/address/0xaac35864D0C9e4baFD840A75307Af12F4a5DcA81
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
