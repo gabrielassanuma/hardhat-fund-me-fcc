@@ -14,6 +14,7 @@ Version 1.0.0
 
 ## ChainLink - Oracle
 This dapps uses chainlink oracle to convert ETH to USD by AgregatorV3 8.0.
+Mock created to simulate oracle functionallity on local network. 
 
 
 ## Scripts
