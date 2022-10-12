@@ -11,7 +11,13 @@ The contract has been deployed on Goerli Testnet(ETH): https://goerli.etherscan.
 ## Version
 Version 1.0.0
 
+
+## ChainLink - Oracle
+This dapps uses chainlink oracle to convert ETH to USD by AgregatorV3 8.0.
+
+
 ## Scripts
+List of scripts:
 
 ```bash
   "scripts": {
@@ -25,6 +31,7 @@ Version 1.0.0
 ```
 
 ## Tests
+All test run in local network
 ```bash
   FundMe
     constructor
@@ -39,8 +46,6 @@ Version 1.0.0
       ✓ only allows the owner to withdraw
       ✓ cheaper withdraw testing
 ```
-
-
 
 
 ## License
