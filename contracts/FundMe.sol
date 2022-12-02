@@ -13,7 +13,7 @@ contract FundMe {
     address[] private s_funders;
 
     address private immutable i_owner;
-    uint256 public constant MINIMUM_USD = 50 * 10**18;
+    uint256 public constant MINIMUM_USD = 50 * 10 ** 18;
 
     // modifier onlyOwner allow smart contract creator to call functions inside smart contract
     // set up AggregatorV3Interface as a Global variable to be used on this Smart contract and PriceConverter.sol
@@ -81,15 +81,14 @@ contract FundMe {
         return i_owner;
     }
 
+    // here is the bugged function
     function getFunder(uint256 index) public view returns (address) {
         return s_funders[index];
     }
 
-    function getAddressToAmountFunded(address funder)
-        public
-        view
-        returns (uint256)
-    {
+    function getAddressToAmountFunded(
+        address funder
+    ) public view returns (uint256) {
         return s_addressToAmountFunded[funder];
     }
 
